@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puxa dados</title>
+  <link rel="stylesheet" href="estilos/style.css">
+  <link rel="stylesheet" href="estilos/button.css">
+  <style>
+    .inform{
+      display: inline;
+      font-size: 13px;
+    }
+    .premium{
+      display: inline;
+      color: rgb(251, 255, 0);
+    }
+    .premium::after{
+      content: "-👑"
+    }
+    .free{
+      display: inline;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p> ======================= <br> PUXAR DADOS - RODNEY <br> =======================</p>
+    <br>
+    <span>Comandos disponíveis: <br><br> 1 - CEP <div class="inform">[ON / gratís]</div><br> 2 - IP <div class="inform">[ON / <div class="premium">PREMIUM</div>]</div><br> 3 - DDD <div class="inform">[ON / gratís]</div><br> 4 - CNPJ <div class="inform">[ON / <div class="premium">PREMIUM</div>]</div><br> 5 - LOCAL <div class="inform">[ON / <div class="premium">PREMIUM</div>]</div><br> 6 - CORDENADAS <div class="inform">[ON / <div class="premium">PREMIUM</div>]</div></span>
+    <br>
+    <br>
+    <p id="PontosPremium">Você não tem pontos premium!</p>
+  </header>
+  <p id="local">puxardados@site:~$</p>
+  <input type="text" placeholder="Exemplo: '3' ou 'DDD'" id="terminal" maxlength="19"><button id="sendButton">ENVIAR</button>
+
+  <script src="src/puxar.js"></script>
+</body>
+</html>

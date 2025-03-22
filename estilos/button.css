@@ -1,0 +1,48 @@
+#sendButton{
+  padding: 3px;
+  border-radius: 0;
+  border: 1px solid green;
+  color: gray;
+  background-color: black;
+  transition: all .2s; 
+}
+#sendButton2{
+  padding: 3px;
+  border-radius: 0;
+  border: 1px solid green;
+  color: gray;
+  background-color: black;
+  transition: all .2s; 
+}
+#sendButton3{
+  padding: 3px;
+  border-radius: 0;
+  border: 1px solid green;
+  color: gray;
+  background-color: black;
+  transition: all .2s; 
+}
+
+#sendButton:active{
+  opacity: 0.2;
+}
+#sendButton:hover{
+  filter: drop-shadow(0px 0px 5px green);
+  color: white;
+}
+
+#sendButton2:active{
+  opacity: 0.2;
+}
+#sendButton2:hover{
+  filter: drop-shadow(0px 0px 5px green);
+  color: white;
+}
+
+#sendButton3:active{
+  opacity: 0.2;
+}
+#sendButton3:hover{
+  filter: drop-shadow(0px 0px 5px green);
+  color: white;
+}

@@ -57,6 +57,11 @@ const terminalCommands = [
     name: "cordenadas",
     id: 6,
     command: "cordscep()"
+  },
+  {
+    name: "cpf",
+    id: 7,
+    command: "cpf()"
   }
 ]
 
@@ -151,6 +156,18 @@ function cordscep(){
     prox("cordscep")
   }else{
     respostas.innerHTML = `puxardados@site:~$ sem premium`
+  }
+}
+function cpf(){
+  if(points == Infinity){
+    respostas.innerHTML = `puxardados@site:~$ <strong>${terminalValues.value.toUpperCase()}</strong><br><br><h3 style='color:red;'>Atenção!</h3><br><strong>Esse site usa a mesma api que a do site <q>Portal da transparência</q>, que é um site publico do governo que permite qualquer pessoa de consulta informção basica pelo cpf, então você tem que seguir algumas regras como:<br> <br> <ol> <li>não consultar cpf de outras pessoa sem autorização ou repitidamente;</li> <li>não pode usar esse site para lucrar (Não ganhar para consultar);</li> <li>não pode anunciar esse site, para evitar sobrecargar no sistema.</li><li>não salve uma informação obtida pelo cpf;</li><li>Use apenas para consultar sobre você, ou pessoas que autorizaram a consulta, e não armazene ou mande para ninguem!</li> </strong><br><br>Siga todas as regras antes de consultar!<br>`
+    respostas.innerHTML += `<br><br>Digite o CPF:`
+    terminalValues.value = ""
+    terminalValues.focus()
+    sendBut.id = "sendButton2"
+    prox("cpf")
+  }else{
+    respostas.innerHTML = `puxardados@site:~$ Não é adm`
   }
 }
 const prox = (method)=>{
@@ -395,6 +412,46 @@ const consulta = (method)=>{
     }else{
       respostas.innerHTML = "puxardados@site:~$ Seu premium acabou!"
     }
+  }else if(method == "cpf"){
+
+    if(terminalValues.value.toLowerCase() == "sair"){
+      window.location.reload()
+    }else if(localStorage.getItem('PuxadasPremium') >= 1){
+      localStorage.setItem('PuxadasPremium', localStorage.getItem('PuxadasPremium')-1)
+      pontos_premium.innerHTML = `Seus pontos premium: ${localStorage.getItem("PuxadasPremium")}`
+    respostas.innerHTML += `<br> Consultando...`
+    setTimeout(function(){
+      if(terminalValues.value.replace(/\D/g, "").length == 11){
+      respostas.innerHTML += `<br>Buscando informações em api...<br>`
+      fetch('https://api.allorigins.win/raw?url='+ encodeURIComponent(`https://portaldatransparencia.gov.br/pessoa-fisica/busca/resultado?termo=${terminalValues.value.replace(/\D/g, "")}&pagina=1&tamanhoPagina=10&t=QfePxXxBavt3STkDeTRe&tokenRecaptcha=0`))
+      .then(res => res.json())
+      .then(dados => {
+        if(!dados.totalRegistros == 0){
+          respostas.innerHTML = "puxardados@site:~$ <br>"
+          respostas.innerHTML += "<br><h3>Consultado com sucesso!</h3>"
+          for(key in dados){
+            if(typeof dados[key] === "object"){
+              let textFilter = JSON.stringify(dados[key], null, 2).replace(/[{}\[\]\"\.]/g, "")
+              respostas.innerHTML += `<br><strong>${key}</strong>: ${textFilter.replace(/,/g, "<br>")}<br>`
+            }else{
+          respostas.innerHTML += `<br><strong>${key}</strong>: ${dados[key]}`
+            }
+          }
+          respostas.innerHTML += "<br><br>"
+        }else{
+          respostas.innerHTML = "puxardados@site:~$ CPF não encontrado"
+        }
+      }).catch(error => {
+        respostas.innerHTML = "puxardados@site:~$ Sem conexão com servidor!"
+        console.error(error)
+      })
+    }else {
+      respostas.innerHTML = "puxardados@site:~$ o CPF deve ter 11 números"
+    }
+    }, 700)
+  }else{
+    respostas.innerHTML = "puxardados@site:~$ Seu premium acabou!"
+  }
   }else{
     console.log("Metodos inválidos!")
   }
